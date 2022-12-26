@@ -5,7 +5,7 @@ import ChatPreview from '../../molecules/ChatPreview';
 
 export default function Chat() {
   return (
-    <div className="chat flex flex-col">
+    <div className="chat w-full h-full absolute top-0 left-0 bg-white flex flex-col">
       <ChatHeader />
       <SearchBar />
       <div className="overflow-y-scroll" style={{ height: 'calc(100vh - 4rem * 2)' }}>

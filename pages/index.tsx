@@ -15,22 +15,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
         <script src="https://kit.fontawesome.com/490a850dc0.js" crossOrigin="anonymous" />
       </Head>
-      <div className="container w-screen h-screen overflow-hidden flex">
-        <section className="main__menu bg-slate-50 w-20 h-screen border-r-2">
-          <MainMenu />
-        </section>
-
-        <section className="chat__preview w-96 h-screen border-r-2">
-          <Chat />
-        </section>
-
-        <section className="chat__content w-6/12 h-screen border-r-2 relative">
-          <ChatContent />
-        </section>
-
-        <section className="info flex-1">
-          <ContactInfo />
-        </section>
+      <div className="container w-screen h-screen overflow-hidden">
+        <MainMenu />
+        <Chat />
+        <ChatContent />
+        <ContactInfo />
       </div>
     </>
   );
