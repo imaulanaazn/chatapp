@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setShowedSection } from '../../../redux/slices/sectionSlice';
 
 export default function ChatPreview() {
+  const dispatch = useDispatch();
   return (
-    <div className="flex items-center gap-3 px-4 py-2 ">
+    <a href="/#" className="flex items-center gap-3 px-4 py-2" onClick={() => { dispatch(setShowedSection({ section: 'chatContent' })); }}>
       <div className="profile__pic w-12 h-12 bg-slate-200 rounded-full overflow-hidden">
         <img src="./images/profile.jpg" alt="" />
       </div>
@@ -16,6 +19,6 @@ export default function ChatPreview() {
         <p className="message__time text-xs text-slate-400">12.00</p>
         <p className="message__total text-xs w-5 h-5 text-white bg-violet-400 flex items-center justify-center rounded-full">4</p>
       </div>
-    </div>
+    </a>
   );
 }

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import MainMenu from '../components/organism/MainMenu';
-import Chat from '../components/organism/Chat';
+import ChatList from '../components/organism/ChatList';
 import ChatContent from '../components/organism/ChatContent';
 import ContactInfo from '../components/organism/ContactInfo';
 
@@ -17,7 +17,7 @@ export default function Home() {
       </Head>
       <div className="container w-screen h-screen overflow-hidden">
         <MainMenu />
-        <Chat />
+        <ChatList />
         <ChatContent />
         <ContactInfo />
       </div>
