@@ -35,7 +35,7 @@ export default function MenuBtn(props:MenuBtnProps) {
   return (
     <button
       type="button"
-      className="menu__btn w-12 h-12 bg-slate-200 rounded-full mx-auto my-3 flex items-center justify-center"
+      className="menu__btn w-12 h-12 bg-slate-200 rounded-full my-3 flex items-center justify-center"
       onClick={() => { menuClicked(); }}
     >
       {icon}

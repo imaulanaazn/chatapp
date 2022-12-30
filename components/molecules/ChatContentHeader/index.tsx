@@ -5,8 +5,8 @@ import { setShowedSection } from '../../../redux/slices/sectionSlice';
 export default function ChatContentHeader() {
   const dispatch = useDispatch();
   return (
-    <div className="w-full h-16 px-5 flex justify-between items-center border-b-2" onClick={() => { dispatch(setShowedSection({ section: 'contactInfo' })); }}>
-      <a href="/#" className="message__sender flex items-center gap-4">
+    <div className="w-full h-16 px-5 flex justify-between items-center border-b-2">
+      <a href="/#" className="message__sender flex items-center gap-4" onClick={() => { dispatch(setShowedSection({ section: 'contactInfo' })); }}>
         <div className="avatar w-12 h-12 bg-slate-200 rounded-full overflow-hidden">
           <img src="./images/profile.jpg" alt="" />
         </div>

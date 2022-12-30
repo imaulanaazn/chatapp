@@ -4,6 +4,7 @@ import {
   ARCHIVEDMESSAGE, MESSAGE, GROUP,
 } from '../../../redux/constant';
 import { setMenuStatus } from '../../../redux/slices/menuSlice';
+import { setShowedSection } from '../../../redux/slices/sectionSlice';
 import { menuStateProps } from '../../../services/data-types';
 
 export default function ChatHeader() {
@@ -35,7 +36,7 @@ export default function ChatHeader() {
       {activeMenu === MESSAGE
       && (
       <div className="buttons">
-        <button type="button" className="add__btn mr-5">
+        <button type="button" className="add__btn mr-5" onClick={() => { dispatch(setShowedSection({ section: 'setting' })); }}>
           <i className="fa-solid fa-plus" />
         </button>
         <button type="button" className="filter__btn">
