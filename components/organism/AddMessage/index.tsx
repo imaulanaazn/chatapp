@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import Contact from '../../atoms/Contact';
 
 export default function AddMessage() {
-  const { setting } = useSelector((state:{section:{setting:boolean}}) => state.section);
+  const { newMessage } = useSelector((state:{section:{newMessage:boolean}}) => state.section);
   return (
-    <div className={`bg-white absolute w-full h-full top-0 ${setting ? 'right-0' : '-right-full hidden'} py-8 px-10`}>
+    <div className={`bg-white absolute w-full h-full top-0 ${newMessage ? 'right-0' : '-right-full hidden'} py-8 px-10`}>
       <h1 className="font-semibold text-xl">New message</h1>
       <input type="text" className="w-full py-1 px-4 bg-slate-100 mt-5" placeholder="Search" />
       <Contact profilePic={<i className="fa-solid fa-user-group" />} name="New Group" />

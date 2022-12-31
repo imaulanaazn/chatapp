@@ -59,7 +59,7 @@ export default function ChatHeader() {
         {activeMenu === MESSAGE
       && (
       <div className="buttons">
-        <button type="button" className="add__btn mr-5" onClick={() => { dispatch(setShowedSection({ section: 'setting' })); }}>
+        <button type="button" className="add__btn mr-5" onClick={() => { dispatch(setShowedSection({ section: 'newMessage' })); }}>
           <i className="fa-solid fa-plus" />
         </button>
         <button type="button" className="filter__btn" onClick={() => { setFilterClicked(true); }}>

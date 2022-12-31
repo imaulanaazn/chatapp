@@ -5,6 +5,7 @@ const initialState = {
   chatContent: false,
   setting: false,
   contactInfo: false,
+  newMessage: false,
 };
 
 const sectionSlice = createSlice({
@@ -16,6 +17,7 @@ const sectionSlice = createSlice({
       state.chatContent = false;
       state.setting = false;
       state.contactInfo = false;
+      state.newMessage = false;
       state[payload.section] = true;
     },
   },

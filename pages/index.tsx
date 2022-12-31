@@ -4,6 +4,8 @@ import MainMenu from '../components/organism/MainMenu';
 import ChatList from '../components/organism/ChatList';
 import ChatContent from '../components/organism/ChatContent';
 import ContactInfo from '../components/organism/ContactInfo';
+import AddMessage from '../components/organism/AddMessage';
+import Settings from '../components/organism/Settings';
 
 export default function Home() {
   return (
@@ -17,7 +19,9 @@ export default function Home() {
       </Head>
       <div className="container w-screen h-screen overflow-hidden">
         <MainMenu />
+        <Settings />
         <ChatList />
+        <AddMessage />
         <ChatContent />
         <ContactInfo />
       </div>
