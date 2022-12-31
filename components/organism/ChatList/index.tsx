@@ -10,7 +10,7 @@ export default function Chat() {
       <ChatHeader />
       <AddMessage />
       <SearchBar />
-      <div className="overflow-y-scroll" style={{ height: 'calc(100vh - 4rem * 2)' }}>
+      <div className="overflow-y-scroll h-[calc(100vh-4rem*2)]">
         <ChatPreview />
         <ChatPreview />
         <ChatPreview />
