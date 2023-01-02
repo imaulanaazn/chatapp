@@ -19,6 +19,9 @@ export default function ChatContentHeader() {
       <div className={`backdrop absolute w-full h-full opacity-0 top-0 left-0 z-10 ${optionVisible ? '' : 'hidden'}`} onClick={() => { setOptionVisible(false); }} />
 
       <div className="w-full h-16 px-5 flex justify-between items-center border-b-2">
+
+        <i className="fa-solid fa-chevron-left" onClick={() => { dispatch(setShowedSection({ section: 'chatContent', value: false })); }} />
+
         <a href="/#" className="message__sender flex items-center gap-4" onClick={() => { dispatch(setShowedSection({ section: 'contactInfo' })); }}>
           <div className="avatar w-12 h-12 bg-slate-200 rounded-full overflow-hidden">
             <img src="./images/profile.jpg" alt="" />
@@ -26,7 +29,7 @@ export default function ChatContentHeader() {
           <h1 className="font-semibold">Nama Penerima</h1>
         </a>
 
-        <div className="message__sender__options flex gap-10">
+        <div className="message__sender__options flex gap-8">
           <button type="button" onClick={() => {}}>
             <i className="fa-solid fa-video" />
           </button>

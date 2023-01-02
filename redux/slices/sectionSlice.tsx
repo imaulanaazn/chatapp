@@ -18,7 +18,7 @@ const sectionSlice = createSlice({
       state.setting = false;
       state.contactInfo = false;
       state.newMessage = false;
-      state[payload.section] = true;
+      state[payload.section] = payload.value;
     },
   },
 });
