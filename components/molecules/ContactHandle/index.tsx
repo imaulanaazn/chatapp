@@ -3,11 +3,11 @@ import React from 'react';
 export default function ContactHandle() {
   return (
     <div className="px-5">
-      <div className="notif my-4 flex items-center gap-3">
+      <button type="button" className="notif my-4 flex items-center gap-3">
         <i className="fa-solid fa-bell text-slate-400 text-sm" />
         <p className="text-sm">Notification</p>
         <div className="switch" />
-      </div>
+      </button>
 
       <button type="button" className="report my-4 flex items-center gap-3">
         <i className="fa-solid fa-circle-exclamation text-slate-400 text-sm" />
