@@ -7,7 +7,6 @@ import LeftChat from '../../molecules/LeftChat';
 
 export default function ChatContent() {
   const { chatContent } = useSelector((state:{section:{chatContent:boolean}}) => state.section);
-  console.log(chatContent);
   return (
     <div className={`chat__content  w-full h-full bg-white absolute top-0 z-20 ${chatContent ? 'right-0' : '-right-full hidden'}`}>
       <ChatContentHeader />
