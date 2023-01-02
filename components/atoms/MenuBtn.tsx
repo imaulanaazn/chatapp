@@ -23,7 +23,7 @@ export default function MenuBtn(props:MenuBtnProps) {
         isSidebarActive: false,
         activeMenu,
       }));
-      dispatch(setShowedSection({ section: 'setting' }));
+      dispatch(setShowedSection({ section: 'setting', value: true }));
     } else {
       dispatch(setActiveMenu({
         isSidebarActive: false,
