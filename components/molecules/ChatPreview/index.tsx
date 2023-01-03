@@ -5,7 +5,7 @@ import { setShowedSection } from '../../../redux/slices/sectionSlice';
 export default function ChatPreview() {
   const dispatch = useDispatch();
   return (
-    <a href="/#" className="flex items-center gap-3 px-4 py-2" onClick={() => { dispatch(setShowedSection({ section: 'chatContent', value: true })); }}>
+    <a href="/#" className="flex items-center gap-3 px-5 py-2" onClick={() => { dispatch(setShowedSection({ section: 'chatContent', value: true })); }}>
       <div className="profile__pic w-12 h-12 bg-slate-200 rounded-full overflow-hidden">
         <img src="./images/profile.jpg" alt="" />
       </div>

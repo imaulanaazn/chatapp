@@ -28,7 +28,7 @@ export default function MainMenu() {
 
       <div className={`backdrop z-30 absolute bg-slate-200 opacity-10 w-full h-full ${profileClicked ? '' : 'hidden'}`} onClick={() => { setProfileClicked(false); }} />
 
-      <div className={`main__menu w-20 text-center h-full absolute top-0 bg-white z-20 ${isSidebarActive ? 'left-0' : '-left-20 lg:left-0'} lg:w-[7%]`}>
+      <div className={`main__menu w-20 text-center h-full absolute top-0 bg-white z-20 border-r-2 border-slate-200 ${isSidebarActive ? 'left-0' : '-left-20 lg:left-0'} lg:w-[7%]`}>
         <button type="button" className="profile__thumb w-12 h-12 bg-slate-200 rounded-full mx-auto my-7 overflow-hidden" onClick={() => { setProfileClicked(true); }}>
           <img src="./images/profile.jpg" alt="" />
         </button>
