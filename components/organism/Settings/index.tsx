@@ -7,7 +7,7 @@ export default function Settings() {
   const dispatch = useDispatch();
   const { setting } = useSelector((state:{section:{setting:boolean}}) => state.section);
   return (
-    <div className={`bg-white w-full h-full absolute top-0 z-20 py-3 px-5 ${setting ? 'right-0' : '-right-full hidden'}`}>
+    <div className={`bg-white w-full h-full absolute top-0 z-20 py-3 px-5 ${setting ? 'left-0' : '-right-full hidden'} sm:w-2/5 lg:w-[33%] lg:left-[7%]`}>
       <div className="add_message_header flex items-center">
         <i className="fa-solid fa-chevron-left" onClick={() => { dispatch(setShowedSection({ section: 'setting', value: false })); }} />
         <h1 className="font-semibold text-xl flex-1 text-center">New message</h1>

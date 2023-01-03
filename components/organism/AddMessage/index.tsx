@@ -8,7 +8,7 @@ export default function AddMessage() {
   const { newMessage } = useSelector((state:{section:{newMessage:boolean}}) => state.section);
 
   return (
-    <div className={`bg-white absolute w-full h-full top-0 ${newMessage ? 'right-0' : '-right-full hidden'} py-6 px-8`}>
+    <div className={`bg-white absolute w-full h-full top-0 ${newMessage ? 'left-0' : '-right-full hidden'} py-6 px-8 sm:w-2/5 lg:w-[33%] lg:left-[7%]`}>
 
       <div className="add_message_header flex items-center">
         <i className="fa-solid fa-chevron-left" onClick={() => { dispatch(setShowedSection({ section: 'addMessage', value: false })); }} />

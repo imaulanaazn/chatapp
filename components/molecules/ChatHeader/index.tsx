@@ -48,7 +48,7 @@ export default function ChatHeader() {
       <div className={`filter__backdrop ${filterClicked ? '' : 'hidden'} absolute w-full h-full z-10 transparent`} onClick={() => { setFilterClicked(false); }} />
 
       <div className="w-full h-16 px-5 flex justify-between items-center border-b-2 ">
-        <button type="button" onClick={() => { dispatch(setMenuStatus({ isSidebarActive: !isSidebarActive })); }}>
+        <button type="button" className="lg:hidden" onClick={() => { dispatch(setMenuStatus({ isSidebarActive: !isSidebarActive })); }}>
           <i className="fa-solid fa-bars" />
         </button>
         <h1 className="font-semibold flex-1 text-center ">{title}</h1>

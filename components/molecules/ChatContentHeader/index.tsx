@@ -20,7 +20,7 @@ export default function ChatContentHeader() {
 
       <div className="w-full h-16 px-5 flex justify-between items-center border-b-2">
 
-        <i className="fa-solid fa-chevron-left" onClick={() => { dispatch(setShowedSection({ section: 'chatContent', value: false })); }} />
+        <i className="back_button fa-solid fa-chevron-left sm:hidden" onClick={() => { dispatch(setShowedSection({ section: 'chatContent', value: false })); }} />
 
         <a href="/#" className="message__sender flex items-center gap-4" onClick={() => { dispatch(setShowedSection({ section: 'contactInfo', value: true })); }}>
           <div className="avatar w-12 h-12 bg-slate-200 rounded-full overflow-hidden">

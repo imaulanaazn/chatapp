@@ -28,12 +28,12 @@ export default function MainMenu() {
 
       <div className={`backdrop z-30 absolute bg-slate-200 opacity-10 w-full h-full ${profileClicked ? '' : 'hidden'}`} onClick={() => { setProfileClicked(false); }} />
 
-      <div className={`main__menu px-3 h-full absolute top-0 bg-white z-20 ${isSidebarActive ? 'left-0' : '-left-20'}`}>
+      <div className={`main__menu w-20 text-center h-full absolute top-0 bg-white z-20 ${isSidebarActive ? 'left-0' : '-left-20 lg:left-0'} lg:w-[7%]`}>
         <button type="button" className="profile__thumb w-12 h-12 bg-slate-200 rounded-full mx-auto my-7 overflow-hidden" onClick={() => { setProfileClicked(true); }}>
           <img src="./images/profile.jpg" alt="" />
         </button>
 
-        <div className="menus mb-40">
+        <div className="menus mb-40 max-w-min mx-auto">
           <MenuBtn icon={<i className="fa-solid fa-folder-minus" />} menu={ARCHIVEDMESSAGE} />
           <MenuBtn icon={<i className="fa-solid fa-message" />} menu={MESSAGE} />
           <MenuBtn icon={<i className="fa-solid fa-user-group" />} menu={GROUP} />
@@ -41,7 +41,7 @@ export default function MainMenu() {
           <MenuBtn icon={<i className="fa-solid fa-gear" />} menu={SETTING} />
         </div>
 
-        <div className="logout">
+        <div className="logout max-w-min mx-auto">
           <MenuBtn icon={<i className="fa-solid fa-arrow-right-from-bracket" />} menu={LOGOUT} />
         </div>
       </div>

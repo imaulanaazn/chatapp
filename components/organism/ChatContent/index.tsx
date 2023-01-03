@@ -6,9 +6,16 @@ import RightChat from '../../molecules/RightChat';
 import LeftChat from '../../molecules/LeftChat';
 
 export default function ChatContent() {
-  const { chatContent } = useSelector((state:{section:{chatContent:boolean}}) => state.section);
+  const {
+    chatContent,
+    contactInfo,
+  } = useSelector((state:{section:{chatContent:boolean, contactInfo:boolean}}) => state.section);
   return (
-    <div className={`chat__content  w-full h-full bg-white absolute top-0 z-20 ${chatContent ? 'right-0' : '-right-full hidden'}`}>
+    <div
+      className={`chat__content absolute w-full h-full bg-white top-0 z-20 
+      ${chatContent ? 'right-0' : '-right-full hidden sm:right-0 sm:block '} 
+      ${contactInfo ? 'lg:right-[25%] lg:w-[calc(100%-25%-7%-25%)]' : 'lg:w-[calc(100%-33%-7%)]'} sm:w-3/5`}
+    >
       <ChatContentHeader />
       <div className="overflow-scroll" style={{ height: 'calc(100vh - 4rem * 2)' }}>
         <RightChat />
