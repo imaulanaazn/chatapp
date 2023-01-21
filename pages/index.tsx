@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import MainMenu from '../components/organism/MainMenu';
-import ChatList from '../components/organism/ChatList';
+import Messages from '../components/organism/Messages';
 import ChatContent from '../components/organism/ChatContent';
 import ContactInfo from '../components/organism/ContactInfo';
 import AddMessage from '../components/organism/AddMessage';
@@ -20,7 +20,7 @@ export default function Home() {
       <div className="container w-screen h-screen overflow-hidden">
         <MainMenu />
         <Settings />
-        <ChatList />
+        <Messages />
         <AddMessage />
         <ChatContent />
         <ContactInfo />

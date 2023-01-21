@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  chatlist: true,
+  convolist: true,
   chatContent: false,
   setting: false,
   contactInfo: false,
@@ -13,7 +13,7 @@ const sectionSlice = createSlice({
   initialState,
   reducers: {
     setShowedSection: (state:any, { payload }) => {
-      state.chatlist = true;
+      state.convolist = true;
       state.chatContent = false;
       state.setting = false;
       state.contactInfo = false;
