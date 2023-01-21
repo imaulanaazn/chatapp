@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import ChatContentHeader from '../../molecules/ChatContentHeader';
@@ -11,6 +11,7 @@ const ROOT_URL = process.env.NEXT_PUBLIC_API;
 export default function ChatContent() {
   const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState('');
+  const scrollRef = useRef();
   const { convoOpen } = useSelector((state:{convo:{convoOpen:string}}) => state.convo);
   const {
     chatContent,
@@ -34,6 +35,10 @@ export default function ChatContent() {
     setUserId(id);
   }, []);
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <div
       className={`chat__content absolute w-full h-full bg-white top-0 z-20 border-l-2 border-slate-200
@@ -46,10 +51,17 @@ export default function ChatContent() {
             <ChatContentHeader />
             <div className="overflow-scroll h-[calc(100vh-4rem*2)] px-5">
               {messages.map((message) => (
-                <Chat key={message._id} own={userId === message.sender} message={message} />
+                <div ref={scrollRef} key={message._id}>
+                  <Chat own={userId === message.sender} message={message} />
+                </div>
               ))}
             </div>
-            <ChatInput />
+            <ChatInput
+              convoId={convoOpen}
+              sender={userId}
+              messages={messages}
+              setMessages={setMessages}
+            />
           </>
         )
         : <h1>There is no convo yet</h1>}

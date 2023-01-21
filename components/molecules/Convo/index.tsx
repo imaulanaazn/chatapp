@@ -35,7 +35,6 @@ export default function Convo(props:ConvoProps) {
 
   function openConvo() {
     dispatch(setShowedSection({ section: 'chatContent', value: true }));
-    console.log(convo._id);
     dispatch(setConvoOpen({ convoId: convo._id }));
   }
 

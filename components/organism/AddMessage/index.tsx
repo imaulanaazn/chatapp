@@ -17,12 +17,12 @@ export default function AddMessage() {
 
       <input type="text" className="w-full py-1 px-4 bg-slate-100 mt-5" placeholder="Search" />
       <Contact profilePic={<i className="fa-solid fa-user-group" />} name="New Group" />
-
-      <h2>Frequently contacted</h2>
+      {/* <h2>Frequently contacted</h2>
       <div className="frequently__contacted">
         <Contact profilePic={<i className="fa-solid fa-user-group" />} name="Salsa" />
-        <Contact profilePic={<i className="fa-solid fa-user-group" />} name="Linen" info="Bismillah" />
-      </div>
+        <Contact profilePic={<i className="fa-solid fa-user-group" />}
+        name="Linen" info="Bismillah" />
+      </div> */}
 
       <h2>All contacts</h2>
       <div className="all__contacts">
