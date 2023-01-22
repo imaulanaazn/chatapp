@@ -5,8 +5,8 @@ export interface menuStateProps{
 
 export interface JWTPayloadTypes{
     email: string,
-iat: number,
-id: string,
-profilePicture: string,
-username: string
+    iat: number,
+    id: string,
+    profilePicture: string,
+    username: string
   }

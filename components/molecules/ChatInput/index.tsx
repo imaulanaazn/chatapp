@@ -4,24 +4,34 @@ import React, { useState } from 'react';
 const ROOT_URL = process.env.NEXT_PUBLIC_API;
 
 interface ChatInputProps{
-  convoId: string,
+  convo: any,
   sender: string,
   messages: any,
-  setMessages: any
+  setMessages: any,
+  socket: any
 }
 
 export default function ChatInput(props:ChatInputProps) {
   const {
-    convoId, sender, messages, setMessages,
+    convo, sender, messages, setMessages, socket,
   } = props;
   const [newMessage, setNewMessage] = useState('');
 
   async function handleSubmit(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
+
+    const receiverId = convo.members.find((member:string) => member !== sender);
+
+    socket.current.emit('sendMessage', {
+      senderId: sender,
+      receiverId,
+      text: newMessage,
+    });
+
     try {
       const res = await axios.post(
         `${ROOT_URL}/messages`,
-        { convoId, sender, text: newMessage },
+        { convoId: convo._id, sender, text: newMessage },
       );
       setMessages([...messages, res.data]);
     } catch (err) {

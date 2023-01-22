@@ -9,5 +9,11 @@ export default function getCurrentUser() {
     const payload: JWTPayloadTypes = jwtDecode(jwtToken);
     return payload;
   }
-  return null;
+  return {
+    email: '',
+    iat: 0,
+    id: '',
+    profilePicture: '',
+    username: '',
+  };
 }

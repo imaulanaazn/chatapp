@@ -6,7 +6,7 @@ interface ChatProps{
 }
 
 function toTime(utc:string) {
-  const time = new Date(utc).toLocaleTimeString().split(':');
+  const time = new Date(utc).toTimeString().split(':');
   return time[0].concat('.', time[1]);
 }
 

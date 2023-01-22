@@ -1,27 +1,79 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { io } from 'socket.io-client';
 import ChatContentHeader from '../../molecules/ChatContentHeader';
 import ChatInput from '../../molecules/ChatInput';
 import Chat from '../../molecules/Chat';
 import getCurrentUser from '../../../services/currentUser';
+import { JWTPayloadTypes } from '../../../services/data-types';
 
 const ROOT_URL = process.env.NEXT_PUBLIC_API;
+interface IArrivalMessage {
+  sender:string,
+  text:string,
+  createdAt: number
+}
+
+interface IConvoOpen{
+  members: string[]
+  _id: string
+}
+
+interface Imessages{
+  convoId: string,
+  sender: string,
+  createdAt: number,
+  text: string
+  _id: string
+}
 
 export default function ChatContent() {
-  const [messages, setMessages] = useState([]);
+  const socket = useRef<any>('');
+  const [messages, setMessages] = useState<Imessages[]>([]);
   const [userId, setUserId] = useState('');
-  const scrollRef = useRef();
-  const { convoOpen } = useSelector((state:{convo:{convoOpen:string}}) => state.convo);
+  const [arrivalMessage, setArrivalMessage] = useState < IArrivalMessage | undefined >(undefined);
+  const scrollRef = useRef<any>(undefined);
+  const { convoOpen } = useSelector((state:{convo:{convoOpen:IConvoOpen}}) => state.convo);
   const {
     chatContent,
     contactInfo,
   } = useSelector((state:{section:{chatContent:boolean, contactInfo:boolean}}) => state.section);
 
+  console.log(arrivalMessage);
+
+  useEffect(() => {
+    socket.current = io('ws://localhost:5000');
+    socket.current.on('getMessage', (data:{senderId:string, text:string}) => {
+      setArrivalMessage({
+        sender: data?.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (arrivalMessage) {
+      if (convoOpen?.members?.includes(arrivalMessage.sender)) {
+        setMessages((prev:any) => [...prev, arrivalMessage]);
+      }
+    }
+  }, [arrivalMessage, convoOpen]);
+
+  useEffect(() => {
+    if (userId) {
+      socket.current.emit('addUser', userId);
+    }
+    // socket.current.on('getUsers', (users) => {
+    //   console.log(users);
+    // });
+  }, [userId]);
+
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(`${ROOT_URL}/messages/${convoOpen}`);
+        const res = await axios.get(`${ROOT_URL}/messages/${convoOpen._id}`);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -31,7 +83,7 @@ export default function ChatContent() {
   }, [convoOpen]);
 
   useEffect(() => {
-    const { id } = getCurrentUser();
+    const { id }:JWTPayloadTypes = getCurrentUser();
     setUserId(id);
   }, []);
 
@@ -51,16 +103,17 @@ export default function ChatContent() {
             <ChatContentHeader />
             <div className="overflow-scroll h-[calc(100vh-4rem*2)] px-5">
               {messages.map((message) => (
-                <div ref={scrollRef} key={message._id}>
+                <div key={message._id} ref={scrollRef}>
                   <Chat own={userId === message.sender} message={message} />
                 </div>
               ))}
             </div>
             <ChatInput
-              convoId={convoOpen}
+              convo={convoOpen}
               sender={userId}
               messages={messages}
               setMessages={setMessages}
+              socket={socket}
             />
           </>
         )

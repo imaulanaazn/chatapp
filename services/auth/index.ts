@@ -1,8 +1,13 @@
 import axios from 'axios';
 
 const ROOT_API = process.env.NEXT_PUBLIC_API;
+interface authParams{
+  username: string,
+  email: string,
+  password: string
+}
 
-export async function authCheck(token:any) {
+export async function authCheck(token:string) {
   if (!token) {
     const isAuthorized = false;
     return isAuthorized;
@@ -19,7 +24,7 @@ export async function authCheck(token:any) {
   return isTokenValid;
 }
 
-export async function handleRegister(params :any) {
+export async function handleRegister(params :authParams) {
   const URL = 'auth/register';
   const result:any = await axios.post(`${ROOT_API}/${URL}`, params)
     .then((res) => res)
@@ -27,7 +32,7 @@ export async function handleRegister(params :any) {
   return result.data;
 }
 
-export async function handleLogin(params :any) {
+export async function handleLogin(params :authParams) {
   const URL = 'auth/login';
   const result:any = await axios.post(`${ROOT_API}/${URL}`, params)
     .then((res) => res)

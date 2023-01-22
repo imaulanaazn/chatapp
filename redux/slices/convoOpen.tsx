@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  convoOpen: '',
+  convoOpen: [],
 };
 
 const convoOpenSlice = createSlice({
@@ -9,7 +9,7 @@ const convoOpenSlice = createSlice({
   initialState,
   reducers: {
     setConvoOpen: (state, { payload }) => {
-      state.convoOpen = payload.convoId;
+      state.convoOpen = payload.convo;
     },
   },
 });
