@@ -10,6 +10,7 @@ import {
 } from '../../../redux/constant';
 import { menuStateProps } from '../../../services/data-types';
 import { setProfileImg, deleteProfile } from '../../../services/profile';
+import getCurrentUser from '../../../services/currentUser';
 
 const ROOT_URL = process.env.NEXT_PUBLIC_API;
 
@@ -31,12 +32,8 @@ export default function MainMenu() {
   const { isSidebarActive } = useSelector((state:{menu:menuStateProps}) => state.menu);
 
   useEffect(() => {
-    const encodedToken = Cookies.get('token')!;
-    if (encodedToken) {
-      const decodedToken = atob(encodedToken);
-      const userFromJwt = jwtDecode<userType>(decodedToken);
-      setUserId(userFromJwt.id);
-    }
+    const userFromJwt = getCurrentUser();
+    setUserId(userFromJwt.id);
   }, []);
 
   async function submitProfile(event:any) {
