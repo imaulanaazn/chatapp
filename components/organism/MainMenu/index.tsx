@@ -1,16 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 import MenuBtn from '../../atoms/MenuBtn';
 import { setMenuStatus } from '../../../redux/slices/menuSlice';
 import {
   ARCHIVEDMESSAGE, MESSAGE, GROUP, STARREDMESSAGE, SETTING, LOGOUT,
 } from '../../../redux/constant';
 import { menuStateProps } from '../../../services/data-types';
+import setProfile from '../../../services/profile';
+
+const ROOT_URL = process.env.NEXT_PUBLIC_API;
+
+interface userType{
+  email: string,
+  id: string,
+  profilePicture: string,
+  username: string
+}
 
 export default function MainMenu() {
   const dispatch = useDispatch();
-  const { isSidebarActive } = useSelector((state:{menu:menuStateProps}) => state.menu);
+  const [newProfile, setNewProfile] = useState<any>('');
+  const [oldProfile, setOldProfile] = useState<any>('');
+  const [image, setImage] = useState<string>('');
+  const [imagePreview, setImagePreview] = useState<any>(null);
   const [profileClicked, setProfileClicked] = useState(false);
+  const { isSidebarActive } = useSelector((state:{menu:menuStateProps}) => state.menu);
+
+  useEffect(() => {
+    const encodedToken = Cookies.get('token')!;
+    if (encodedToken) {
+      const decodedToken = atob(encodedToken);
+      const oldUser = jwtDecode<userType>(decodedToken);
+      setOldProfile(oldUser);
+    }
+  }, []);
+
+  async function submitProfile(event:any) {
+    const img = event.target.files![0];
+    setImagePreview(URL.createObjectURL(img));
+    const data = new FormData();
+    data.append('email', oldProfile.email);
+    data.append('id', oldProfile.id);
+    data.append('username', oldProfile.username);
+    data.append('profilePicture', img);
+    const result = await setProfile(data, oldProfile.id);
+    setNewProfile(result?.data);
+    setProfileClicked(false);
+  }
+
+  useEffect(() => {
+    async function getUser() {
+      if (oldProfile) {
+        const result = await axios.get(`${ROOT_URL}/users?userId=${oldProfile.id}`);
+        setImage(result?.data?.profilePicture);
+      }
+    }
+    getUser();
+  }, [oldProfile, newProfile]);
 
   return (
     <>
@@ -20,7 +69,7 @@ export default function MainMenu() {
           className="block w-full text-sm text-slate-500
             file:mr-4 file:py-2 file:px-4 file:border-0
             file:text-sm file:bg-transparent"
-          onInput={() => { setProfileClicked(false); }}
+          onChange={(event) => { submitProfile(event); }}
         />
         <button type="button" className="py-2 px-4 text-sm text-left border-y border-slate-300" onClick={() => { setProfileClicked(false); }}>View Profile</button>
         <button type="button" className="py-2 px-4 text-sm text-left" onClick={() => { setProfileClicked(false); }}>Remove Profile</button>
@@ -30,7 +79,9 @@ export default function MainMenu() {
 
       <div className={`main__menu w-20 text-center h-full absolute top-0 bg-white z-20 border-r-2 border-slate-200 ${isSidebarActive ? 'left-0' : '-left-20 lg:left-0'} lg:w-[7%]`}>
         <button type="button" className="profile__thumb w-12 h-12 bg-slate-200 rounded-full mx-auto my-7 overflow-hidden" onClick={() => { setProfileClicked(true); }}>
-          <img src="./images/profile.jpg" alt="" />
+          {imagePreview
+            ? <img className="w-full h-full object-cover" src={imagePreview} alt="upload" />
+            : <img className="w-full h-full object-cover" src={image ? `${ROOT_URL}/uploads/${image}` : './images/blank_profile.jpg'} alt="" />}
         </button>
 
         <div className="menus mb-40 max-w-min mx-auto">

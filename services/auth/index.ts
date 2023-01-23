@@ -21,7 +21,7 @@ export async function authCheck(token:string) {
     .then((data) => data)
     .catch((err) => console.log(err));
   const { isTokenValid } = result;
-  return isTokenValid;
+  return isTokenValid || false;
 }
 
 export async function handleRegister(params :authParams) {

@@ -40,8 +40,6 @@ export default function ChatContent() {
     contactInfo,
   } = useSelector((state:{section:{chatContent:boolean, contactInfo:boolean}}) => state.section);
 
-  console.log(arrivalMessage);
-
   useEffect(() => {
     socket.current = io('ws://localhost:5000');
     socket.current.on('getMessage', (data:{senderId:string, text:string}) => {
