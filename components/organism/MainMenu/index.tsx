@@ -9,7 +9,7 @@ import {
   ARCHIVEDMESSAGE, MESSAGE, GROUP, STARREDMESSAGE, SETTING, LOGOUT,
 } from '../../../redux/constant';
 import { menuStateProps } from '../../../services/data-types';
-import setProfile from '../../../services/profile';
+import { setProfileImg } from '../../../services/profile';
 
 const ROOT_URL = process.env.NEXT_PUBLIC_API;
 
@@ -23,7 +23,7 @@ interface userType{
 export default function MainMenu() {
   const dispatch = useDispatch();
   const [newProfile, setNewProfile] = useState<any>('');
-  const [oldProfile, setOldProfile] = useState<any>('');
+  const [userId, setUserId] = useState<string>('');
   const [image, setImage] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<any>(null);
   const [profileClicked, setProfileClicked] = useState(false);
@@ -33,33 +33,32 @@ export default function MainMenu() {
     const encodedToken = Cookies.get('token')!;
     if (encodedToken) {
       const decodedToken = atob(encodedToken);
-      const oldUser = jwtDecode<userType>(decodedToken);
-      setOldProfile(oldUser);
+      const userFromJwt = jwtDecode<userType>(decodedToken);
+      setUserId(userFromJwt.id);
     }
   }, []);
 
   async function submitProfile(event:any) {
-    const img = event.target.files![0];
-    setImagePreview(URL.createObjectURL(img));
-    const data = new FormData();
-    data.append('email', oldProfile.email);
-    data.append('id', oldProfile.id);
-    data.append('username', oldProfile.username);
-    data.append('profilePicture', img);
-    const result = await setProfile(data, oldProfile.id);
-    setNewProfile(result?.data);
-    setProfileClicked(false);
+    if (userId) {
+      const img = event.target.files![0];
+      setImagePreview(URL.createObjectURL(img));
+      const data = new FormData();
+      data.append('profilePicture', img);
+      const result = await setProfileImg(data, userId);
+      setNewProfile(result?.data);
+      setProfileClicked(false);
+    }
   }
 
   useEffect(() => {
     async function getUser() {
-      if (oldProfile) {
-        const result = await axios.get(`${ROOT_URL}/users?userId=${oldProfile.id}`);
+      if (userId) {
+        const result = await axios.get(`${ROOT_URL}/users?userId=${userId}`);
         setImage(result?.data?.profilePicture);
       }
     }
     getUser();
-  }, [oldProfile, newProfile]);
+  }, [userId, newProfile]);
 
   return (
     <>
