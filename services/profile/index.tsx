@@ -18,3 +18,8 @@ export async function setProfileImg(props:FormData, userId:string) {
   const result = await axios.put(`${ROOT_URL}/users/${userId}/profile`, props);
   return result;
 }
+
+export async function deleteProfile(userId:string) {
+  const result = await axios.delete(`${ROOT_URL}/users/${userId}/profile`);
+  return result;
+}

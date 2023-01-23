@@ -9,7 +9,7 @@ import {
   ARCHIVEDMESSAGE, MESSAGE, GROUP, STARREDMESSAGE, SETTING, LOGOUT,
 } from '../../../redux/constant';
 import { menuStateProps } from '../../../services/data-types';
-import { setProfileImg } from '../../../services/profile';
+import { setProfileImg, deleteProfile } from '../../../services/profile';
 
 const ROOT_URL = process.env.NEXT_PUBLIC_API;
 
@@ -22,6 +22,7 @@ interface userType{
 
 export default function MainMenu() {
   const dispatch = useDispatch();
+  const [viewProfile, setViewProfile] = useState(false);
   const [newProfile, setNewProfile] = useState<any>('');
   const [userId, setUserId] = useState<string>('');
   const [image, setImage] = useState<string>('');
@@ -60,6 +61,16 @@ export default function MainMenu() {
     getUser();
   }, [userId, newProfile]);
 
+  async function removeProfile() {
+    if (userId) {
+      const result = await deleteProfile(userId);
+      if (result.status === 200) {
+        setImagePreview('');
+        setImage('');
+      }
+    }
+  }
+
   return (
     <>
       <div className={`bg-slate-200 absolute z-50 left-4 top-[calc(3rem+1.75rem+0.5rem)] w-max rounded-md flex flex-col ${profileClicked ? '' : 'hidden'} `}>
@@ -70,8 +81,8 @@ export default function MainMenu() {
             file:text-sm file:bg-transparent"
           onChange={(event) => { submitProfile(event); }}
         />
-        <button type="button" className="py-2 px-4 text-sm text-left border-y border-slate-300" onClick={() => { setProfileClicked(false); }}>View Profile</button>
-        <button type="button" className="py-2 px-4 text-sm text-left" onClick={() => { setProfileClicked(false); }}>Remove Profile</button>
+        <button type="button" className="py-2 px-4 text-sm text-left border-y border-slate-300" onClick={() => { setProfileClicked(false); setViewProfile(true); }}>View Profile</button>
+        <button type="button" className="py-2 px-4 text-sm text-left" onClick={() => { setProfileClicked(false); removeProfile(); }}>Remove Profile</button>
       </div>
 
       <div className={`backdrop z-30 absolute bg-slate-200 opacity-10 w-full h-full ${profileClicked ? '' : 'hidden'}`} onClick={() => { setProfileClicked(false); }} />
@@ -95,10 +106,20 @@ export default function MainMenu() {
           <MenuBtn icon={<i className="fa-solid fa-arrow-right-from-bracket" />} menu={LOGOUT} />
         </div>
       </div>
+
       <div
         className={`menu__backdrop w-full h-full bg-slate-100 absolute z-10 opacity-0 ${isSidebarActive ? '' : 'hidden'}`}
         onClick={() => dispatch(setMenuStatus({ isSidebarActive: !isSidebarActive }))}
       />
+
+      <div
+        className={`view_profile ${viewProfile ? '' : 'hidden'} absolute top-0 left-0 w-full h-full z-50 px-20 py-10 bg-[rgb(10,10,10,0.5)]`}
+      >
+        <button type="button" onClick={() => setViewProfile(false)} className="text-white mb-3">Close</button>
+        {imagePreview
+          ? <img className="w-full h-full object-cover" src={imagePreview} alt="upload" />
+          : <img className="w-full h-full object-cover" src={image ? `${ROOT_URL}/uploads/${image}` : './images/blank_profile.jpg'} alt="" />}
+      </div>
     </>
   );
 }
