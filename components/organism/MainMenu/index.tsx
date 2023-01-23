@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import MenuBtn from '../../atoms/MenuBtn';
 import { setMenuStatus } from '../../../redux/slices/menuSlice';
@@ -13,13 +11,6 @@ import { setProfileImg, deleteProfile } from '../../../services/profile';
 import getCurrentUser from '../../../services/currentUser';
 
 const ROOT_URL = process.env.NEXT_PUBLIC_API;
-
-interface userType{
-  email: string,
-  id: string,
-  profilePicture: string,
-  username: string
-}
 
 export default function MainMenu() {
   const dispatch = useDispatch();
@@ -45,6 +36,7 @@ export default function MainMenu() {
       const result = await setProfileImg(data, userId);
       setNewProfile(result?.data);
       setProfileClicked(false);
+      event.target.value = '';
     }
   }
 
