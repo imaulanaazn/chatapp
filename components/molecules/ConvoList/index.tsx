@@ -10,8 +10,6 @@ export default function ConvoList() {
   const [conversations, setConversations] = useState([]);
   const [userId, setUserId] = useState('');
 
-  console.log(conversations);
-
   useEffect(() => {
     const payload = getCurrentUser();
     setUserId(payload.id);
