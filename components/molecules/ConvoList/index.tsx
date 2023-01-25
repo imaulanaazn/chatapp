@@ -10,6 +10,8 @@ export default function ConvoList() {
   const [conversations, setConversations] = useState([]);
   const [userId, setUserId] = useState('');
 
+  console.log(conversations);
+
   useEffect(() => {
     const payload = getCurrentUser();
     setUserId(payload.id);
@@ -18,7 +20,7 @@ export default function ConvoList() {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get(`${ROOT_URL}/conversations/${userId}`);
+        const res = await axios.get(`${ROOT_URL}/conversations/private/${userId}`);
         setConversations(res.data);
       } catch (err) {
         console.log(err);
@@ -29,7 +31,7 @@ export default function ConvoList() {
 
   return (
     <div className="chat_previews overflow-y-scroll h-[calc(100vh-4rem*2)]">
-      {conversations.map((convo) => (
+      {conversations.map((convo:{_id:string, members:string[]}) => (
         <Convo key={convo._id} convo={convo} currentUser={userId} />
       ))}
     </div>
